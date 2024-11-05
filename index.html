@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JSON Path Experiment</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: #f0f8ff;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        #instructions, #jsonDisplay, #feedback, #resultsContainer {
+            margin-top: 15px;
+            text-align: left;
+            font-family: Consolas, monospace;
+            font-size: 14px;
+        }
+        #inputPath {
+            width: 80%;
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        #keyButtons {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>JSON Path Experiment</h1>
+    <div id="instructions">
+        <p>Instructions: Each test presents a JSON structure. Use the buttons to navigate the JSON structure and find the target attribute. You can also enter the path directly.</p>
+    </div>
+
+    <h3>JSON Object</h3>
+    <pre id="jsonDisplay"></pre>
+
+    <h3>Enter JSON Path</h3>
+    <input type="text" id="inputPath" placeholder="e.g., level1.level2.targetAttribute" oninput="syncPathFromInput()">
+    <button onclick="checkPath()">Submit Path</button>
+    <button onclick="clearPath()">Clear Path</button>
+
+    <div id="feedback"></div>
+    <div id="keyButtons"></div>
+    <div id="resultsContainer"></div>
+</div>
+
+<script src="./code.js"></script>
+</body>
+</html>
