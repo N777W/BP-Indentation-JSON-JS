@@ -11,7 +11,7 @@ let correctPath = "";  // Full path including the attribute itself
 let targetAttribute = "Target value!";
 let currentPath = [];
 let uniqueKeys = new Set();  // Track all unique keys in the JSON
-let testCaseCount = 5;  // Adjust the number of test cases if needed
+let testCaseCount = 30;  // Adjust the number of test cases if needed
 let currentTestCase = 0;
 let isIndented = true;  // Tracks whether the current test case is indented or not
 
