@@ -44,10 +44,26 @@
     </style>
 </head>
 <body>
-<div class="container">
+<div id="introContainer" class="container">
+    <h1>Welcome to the JSON Path Experiment</h1>
+    <h3>Example</h3>
+    <pre>
+{
+    "alpha": {
+        "beta": {
+            "target": "Target value!"
+        }
+    }
+}
+    </pre>
+    <p>In this example, the correct path to the target attribute is <strong>alpha.beta.target</strong>.</p>
+    <p>Press <strong style="color: red">Enter</strong> to start the experiment.</p>
+</div>
+
+<div id="experimentContainer" class="container" style="display: none;">
     <h1>JSON Path Experiment</h1>
     <div id="instructions">
-        <p>Instructions: Each test presents a JSON structure. Use the buttons to navigate the JSON structure and find the target attribute which is named "Target value!". You can also enter the path directly. For example, level1.level2</p>
+        <p>Find the path to the attribute named "Target value!"</p>
     </div>
 
     <h3>JSON Object</h3>
@@ -57,7 +73,7 @@
     <input type="text" id="inputPath" placeholder="e.g., level1.level2" oninput="syncPathFromInput()">
     <button onclick="checkPath()">Submit Path</button>
     <button onclick="clearPath()">Clear Path</button>
-    <button onclick="removeLastFromPath()">Remove Last</button> <!-- New Remove Last button -->
+    <button onclick="removeLastFromPath()">Remove Last</button>
 
     <div id="feedback"></div>
     <div id="keyButtons"></div>
@@ -65,5 +81,20 @@
 </div>
 
 <script src="./code.js"></script>
+<script>
+    // Function to start the experiment by hiding the intro and showing the main experiment container
+    function startExperiment() {
+        document.getElementById("introContainer").style.display = "none";
+        document.getElementById("experimentContainer").style.display = "block";
+        startTestCase(); // Initialize the experiment (function in code.js)
+    }
+
+    // Listen for Enter key press on the intro screen
+    document.addEventListener("keydown", function(event) {
+        if (event.key === "Enter" && document.getElementById("introContainer").style.display !== "none") {
+            startExperiment();
+        }
+    });
+</script>
 </body>
 </html>
