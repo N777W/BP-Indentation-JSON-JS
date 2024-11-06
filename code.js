@@ -7,7 +7,7 @@ const wordPool = [
 ];
 
 let currentJSON = {};
-let correctPath = "";  // Correct path will be assigned and retained here
+let correctPath = "";  // Full path including the attribute itself
 let targetAttribute = "Target value!";
 let currentPath = [];
 let uniqueKeys = new Set();  // Track all unique keys in the JSON
@@ -49,14 +49,14 @@ function generateRandomJSON(maxDepth = 3, maxFields = 3) {
     return jsonObject;
 }
 
-// Set a random attribute as the target and update correctPath (excluding the attribute itself)
+// Set a random attribute as the target and update correctPath to include the attribute itself
 function setRandomTargetAttribute(jsonObject, possiblePaths) {
     if (possiblePaths.length > 0) {
         const randomPath = possiblePaths[Math.floor(Math.random() * possiblePaths.length)];
-        correctPath = randomPath.slice(0, -1).join(".");  // Exclude the final attribute key
+        correctPath = randomPath.join(".");  // Include the final attribute key in correctPath
 
         // Log for debugging
-        console.log("Setting Correct Path:", correctPath);
+        console.log("Setting Full Correct Path:", correctPath);
 
         // Traverse to set target value
         let current = jsonObject;
@@ -142,13 +142,13 @@ function syncPathFromInput() {
     currentPath = input ? input.split(".") : [];
 }
 
-// Check if the entered path matches the target path (excluding the attribute itself)
+// Check if the entered path matches the target path including the attribute itself
 function checkPath() {
     const inputPath = document.getElementById("inputPath").value.trim();
     const feedback = document.getElementById("feedback");
 
     console.log("User Entered Path:", inputPath);
-    console.log("Correct Path for Comparison:", correctPath);
+    console.log("Full Correct Path for Comparison:", correctPath);
 
     if (inputPath === correctPath) {
         feedback.textContent = "Correct! Moving to the next test case...";
@@ -160,11 +160,11 @@ function checkPath() {
     }
 }
 
-// Start a new test case, alternating between indented and unindented
+// Start a new test case, randomly alternating between indented and unindented
 function startTestCase() {
     currentJSON = generateRandomJSON();
     currentPath = [];
-    isIndented = Math.random() > 0.5;  // Randomly choose indented or unindented format
+    isIndented = Math.random() > 0.5;  // Randomly choose indented or unindented format for each test case
     displayJSON();
     displayKeyButtons();
     updatePathDisplay();
