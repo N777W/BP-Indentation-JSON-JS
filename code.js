@@ -93,11 +93,18 @@ function displayJSON() {
 
     if (isIndented) {
         // Display in hierarchical indented format
-        jsonDisplay.textContent = JSON.stringify(currentJSON, null, 4);
+        jsonDisplay.innerHTML = highlightTargetValue(JSON.stringify(currentJSON, null, 4));
     } else {
         // Display in vertical format without indentation
-        jsonDisplay.textContent = formatJSONVertical(currentJSON);
+        jsonDisplay.innerHTML = highlightTargetValue(formatJSONVertical(currentJSON));
     }
+}
+
+// Helper function to wrap the target value in a red-colored span
+function highlightTargetValue(jsonString) {
+    // Replace the target value text with a span styled in red
+    const targetValueRegex = new RegExp(`"${targetAttribute}"`, 'g');
+    return jsonString.replace(targetValueRegex, `<span style="color: red;">"${targetAttribute}"</span>`);
 }
 
 // Convert JSON object to a vertical format with each key-value pair on a new line
@@ -106,12 +113,13 @@ function formatJSONVertical(obj) {
     return lines.map(line => line.trim()).join('\n');
 }
 
-// Display all unique keys as buttons for path building
+// Display all unique keys as alphabetically sorted buttons for path building
 function displayKeyButtons() {
     const keyButtons = document.getElementById("keyButtons");
     keyButtons.innerHTML = "";  // Clear previous buttons
 
-    uniqueKeys.forEach(key => {
+    // Sort the unique keys alphabetically and then create buttons
+    Array.from(uniqueKeys).sort().forEach(key => {
         const button = document.createElement("button");
         button.textContent = key;
         button.onclick = () => addToPath(key);
