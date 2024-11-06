@@ -11,7 +11,7 @@ let correctPath = "";  // Full path including the attribute itself
 let targetAttribute = "Target value!";
 let currentPath = [];
 let uniqueKeys = new Set();  // Track all unique keys in the JSON
-let testCaseCount = 30;  // Adjust the number of test cases if needed
+let testCaseCount = 5;  // Adjust the number of test cases if needed
 let currentTestCase = 0;
 let isIndented = true;  // Tracks whether the current test case is indented or not
 
@@ -142,6 +142,14 @@ function updatePathDisplay() {
 function clearPath() {
     currentPath = [];
     updatePathDisplay();
+}
+
+// Remove the last key from the current path
+function removeLastFromPath() {
+    if (currentPath.length > 0) {
+        currentPath.pop(); // Remove the last item in the path
+        updatePathDisplay(); // Update the display to reflect the change
+    }
 }
 
 // Synchronize `currentPath` with the manual input in the text field
